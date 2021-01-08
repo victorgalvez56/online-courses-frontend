@@ -6,14 +6,9 @@ import { Notify } from 'quasar'
 export async function login({ commit }, user) {
     try {
         const { data } = await axiosInstance.post('/auth/signin', user)
-
-console.warn(data);
-
         localStorage.setItem('token', data.token)
         localStorage.setItem('user', JSON.stringify(data.user))
-
         commit('auth_success', data.token, data.user)
-
         Notify.create({
             message: 'Inicio de sesión exitoso',
             color: 'positive',

@@ -11,6 +11,11 @@ export default {
       path: '/',
       name: 'admin',
       component: () => import('pages/admin/Index')
+    },
+    {
+      path: '/products',
+      name: 'products',
+      component: () => import('pages/admin/products/Index')
     }
   ]
 }
