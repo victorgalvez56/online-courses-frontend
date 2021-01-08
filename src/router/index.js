@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 import routes from './routes'
+import checkAuth from './middlewares/checkAuth'
 
 Vue.use(VueRouter)
 
@@ -26,5 +27,9 @@ export default function (/* { store, ssrContext } */) {
     base: process.env.VUE_ROUTER_BASE
   })
 
+
+  Router.beforeEach(checkAuth)
+
   return Router
 }
+
