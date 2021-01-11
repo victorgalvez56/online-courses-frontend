@@ -1,121 +1,97 @@
-  <template>
-  <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
+<template>
+  <q-layout view="lHh LpR lFf">
+    <q-header
+      reveal
+      :class="$q.dark.isActive ? 'header_dark' : 'header_normal'"
+    >
       <q-toolbar>
+        <q-toolbar-title>CRM Admin</q-toolbar-title>
+        <q-btn
+          class="q-mr-xs"
+          flat
+          round
+          @click="$q.dark.toggle()"
+          :icon="$q.dark.isActive ? 'nights_stay' : 'wb_sunny'"
+        />
         <q-btn
           flat
+          
           dense
-          round
-          icon="menu"
-          aria-label="Menu"
-          @click="leftDrawerOpen = !leftDrawerOpen"
+          icon="exit_to_app"
+          label="Ingresar"
+          @click="logoutNotify"
+          to="/sign"
         />
-
-        <q-toolbar-title>
-          Quasar App
-        </q-toolbar-title>
-
-        <div>Quasar v{{ $q.version }}</div>
-              <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link><span v-if="isLoggedIn"> | <a @click="logout">Logout</a></span>
-  
       </q-toolbar>
     </q-header>
 
-    <q-drawer
-      v-model="leftDrawerOpen"
-      show-if-above
-      bordered
-      content-class="bg-grey-1"
-    >
-      <q-list>
-        <q-item-label
-          header
-          class="text-grey-8"
-        >
-          Essential Links
-        </q-item-label>
-        <EssentialLink
-          v-for="link in essentialLinks"
-          :key="link.title"
-          v-bind="link"
-        />
-      </q-list>
-    </q-drawer>
-
     <q-page-container>
-      <router-view />
+      <q-page class="row no-wrap">
+        <div class="col">
+          <div class="full-height">
+            <q-scroll-area class="col q-pr-sm full-height" visible>
+              <router-view />
+            </q-scroll-area>
+          </div>
+        </div>
+      </q-page>
     </q-page-container>
   </q-layout>
 </template>
 
 <script>
-import EssentialLink from 'components/EssentialLink.vue'
-
-const linksData = [
-  {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev'
-  },
-  {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: 'https://github.com/quasarframework'
-  },
-  {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: 'https://chat.quasar.dev'
-  },
-  {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev'
-  },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev'
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev'
-  },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev'
-  }
-];
-
 export default {
-  name: 'MainLayout',
-  components: { EssentialLink },
-  data () {
+  data() {
     return {
-      leftDrawerOpen: false,
-      essentialLinks: linksData
-    }
+      left: false
+    };
   },
-      computed : {
-      isLoggedIn : function(){ return this.$store.getters.isLoggedIn}
-    },
-    methods: {
-      logout: function () {
-        this.$store.dispatch('logout')
-        .then(() => {
-          this.$router.push('/login')
-        })
-      }
-    },
-}
+  methods: {
+    logoutNotify() {
+      this.$q.notify({
+        message: "Logged out"
+      });
+    }
+  }
+};
 </script>
+
+<style>
+.q-drawer {
+  /*background-image: url(https://demos.creative-tim.com/vue-material-dashboard/img/sidebar-2.32103624.jpg) !important;*/
+  background-image: url("/statics/images/lake.jpg") !important;
+  background-size: cover !important;
+}
+
+.drawer_normal {
+  background-color: rgba(1, 1, 1, 0.75);
+}
+
+.drawer_dark {
+  background-color: #010101f2;
+}
+
+.navigation-item {
+  border-radius: 5px;
+}
+
+.tab-active {
+  background-color: green;
+}
+
+body {
+  background: #f1f1f1 !important;
+}
+
+.header_normal {
+  background: linear-gradient(
+    145deg,
+    rgb(32, 106, 80) 15%,
+    rgb(21, 57, 102) 70%
+  );
+}
+
+.header_dark {
+  background: linear-gradient(145deg, rgb(61, 14, 42) 15%, rgb(14, 43, 78) 70%);
+}
+</style>

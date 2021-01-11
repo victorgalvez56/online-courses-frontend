@@ -13,9 +13,19 @@ export default {
       component: () => import('pages/admin/Index')
     },
     {
-      path: '/products',
+      path: 'products',
       name: 'products',
       component: () => import('pages/admin/products/Index')
+    },
+    {
+      path: 'kinds',
+      name: 'kinds',
+      component: () => import('pages/admin/kinds/Index')
+    },
+    {
+      path: 'categories',
+      name: 'products',
+      component: () => import('pages/admin/categories/Index')
     }
   ]
 }

@@ -7,9 +7,7 @@ export default async (to, from, next) => {
     if(user.role === 'ROOT'){
         next()
 
-    }else{
-        next('/')
     }
 
-
+    next('/')
 }

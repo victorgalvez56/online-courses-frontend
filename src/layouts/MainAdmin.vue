@@ -38,7 +38,7 @@
           flat
           round
           dense
-          icon="fas fa-sign-out-alt"
+          icon="exit_to_app"
           @click="logoutNotify"
           to="/"
         />
@@ -69,7 +69,7 @@
             <q-list padding>
               <q-item
                 active-class="tab-active"
-                to="/dashboard"
+                to="/admin/products"
                 exact
                 class="q-ma-sm navigation-item"
                 clickable
@@ -83,10 +83,9 @@
                   Productos
                 </q-item-section>
               </q-item>
-
               <q-item
                 active-class="tab-active"
-                to="/dashboard_v2"
+                to="/admin/kinds"
                 exact
                 class="q-ma-sm navigation-item"
                 clickable
@@ -94,6 +93,22 @@
               >
                 <q-item-section avatar>
                   <q-icon name="dashboard" />
+                </q-item-section>
+
+                <q-item-section>
+                  Tipos
+                </q-item-section>
+              </q-item>
+              <q-item
+                active-class="tab-active"
+                to="/admin/categories"
+                exact
+                class="q-ma-sm navigation-item"
+                clickable
+                v-ripple
+              >
+                <q-item-section avatar>
+                  <q-icon name="category" />
                 </q-item-section>
 
                 <q-item-section>

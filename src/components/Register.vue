@@ -40,7 +40,7 @@
       </div>
       <label for="password-confirm">Rol</label>
       <div>
-        <input id="role" type="number" v-model="user.role" required />
+        <input id="role" type="text" v-model="user.role" required />
       </div>
 
       <label for="password-confirm">Descripción</label>

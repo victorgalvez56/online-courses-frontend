@@ -13,7 +13,7 @@ export default async ({ Vue /*router*/ }) => {
     // send token in header request
     const token = localStorage.getItem('token')
     if (token) {
-      config.headers.common['Authorization'] = token
+      config.headers.common['Authorization'] =  `Bearer ${token}`
     }
 
     return config

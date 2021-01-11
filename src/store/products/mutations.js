@@ -1,4 +1,4 @@
-/*
-export function someMutation (state) {
-}
-*/
+
+export function SET_PRODUCTS (state, products) {
+    state.products = products
+  }
