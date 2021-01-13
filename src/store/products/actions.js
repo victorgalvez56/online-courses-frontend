@@ -11,6 +11,7 @@ export async function createProduct({ commit }, product) {
             color: 'positive',
             icon: 'check'
         })
+        readProducts({commit})
         return data
     } catch (error) {
         Notify.create({
@@ -25,8 +26,6 @@ export async function createProduct({ commit }, product) {
 export async function readProducts({ commit }) {
     try {
         const { data } = await axiosInstance.get('/item')
-
-
         commit('SET_PRODUCTS', data)
         return  data
     } catch (error) {

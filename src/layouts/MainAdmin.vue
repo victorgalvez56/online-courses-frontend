@@ -115,7 +115,22 @@
                   Categorias
                 </q-item-section>
               </q-item>
+              <q-item
+                active-class="tab-active"
+                to="/admin/users"
+                exact
+                class="q-ma-sm navigation-item"
+                clickable
+                v-ripple
+              >
+                <q-item-section avatar>
+                  <q-icon name="group" />
+                </q-item-section>
 
+                <q-item-section>
+                  Usuarios
+                </q-item-section>
+              </q-item>
               <q-item
                 active-class="tab-active"
                 to="/dashboard_v3"

@@ -10,7 +10,7 @@
           <q-separator inset></q-separator>
 
           <q-card-section>
-            <q-form class="registerKind" @submit.prevent="registerKind(kind)">
+            <q-form class="createKind" @submit.prevent="createKind(kind)">
               <q-list>
                 <q-item>
                   <q-item-section>
@@ -199,7 +199,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions("kinds", ["registerKind"]),
+    ...mapActions("kinds", ["createKind"]),
     exportDepositsTable() {
       // naive encoding to csv format
       const content = [this.columns.map((col) => wrapCsvValue(col.label))]
