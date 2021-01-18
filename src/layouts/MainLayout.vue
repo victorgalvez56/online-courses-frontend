@@ -5,7 +5,7 @@
       :class="$q.dark.isActive ? 'header_dark' : 'header_normal'"
     >
       <q-toolbar>
-        <q-toolbar-title>CRM Admin</q-toolbar-title>
+        <q-toolbar-title>Delivery</q-toolbar-title>
         <q-btn
           class="q-mr-xs"
           flat
@@ -84,11 +84,7 @@ body {
 }
 
 .header_normal {
-  background: linear-gradient(
-    145deg,
-    rgb(32, 106, 80) 15%,
-    rgb(21, 57, 102) 70%
-  );
+  background: #e43853;
 }
 
 .header_dark {
