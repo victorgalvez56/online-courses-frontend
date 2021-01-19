@@ -62,7 +62,7 @@
               <img src="https://cdn.quasar.dev/img/boy-avatar.png" />
             </q-avatar>
 
-            <q-toolbar-title>Mayank Patel</q-toolbar-title>
+            <q-toolbar-title>Administrador</q-toolbar-title>
           </q-toolbar>
           <hr />
           <q-scroll-area style="height:100%;">
@@ -187,8 +187,8 @@ export default {
 
 <style>
 .q-drawer {
-  /*background-image: url(https://demos.creative-tim.com/vue-material-dashboard/img/sidebar-2.32103624.jpg) !important;*/
-  background-image: url("/statics/images/lake.jpg") !important;
+  background-image: url(https://demos.creative-tim.com/vue-material-dashboard/img/sidebar-2.32103624.jpg) !important;
+  /* background-image: url("/statics/images/lake.jpg") !important; */
   background-size: cover !important;
 }
 
@@ -213,11 +213,7 @@ body {
 }
 
 .header_normal {
-  background: linear-gradient(
-    145deg,
-    rgb(32, 106, 80) 15%,
-    rgb(21, 57, 102) 70%
-  );
+  background: #e43853;
 }
 
 .header_dark {

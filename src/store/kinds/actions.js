@@ -6,6 +6,7 @@ import { Notify } from 'quasar'
 export async function createKind({ commit }, kind) {
     try {
         const { data } = await axiosInstance.post('/kind', kind)
+        readKinds({commit})
         Notify.create({
             message: 'Registro exitoso',
             color: 'positive',
@@ -34,4 +35,9 @@ export async function readKinds({ commit }) {
         })
         return error
     }
+}
+
+export async function setPictureKind({ commit }, data) {
+
+    return axiosInstance.put('/kind/media/1', data)
 }

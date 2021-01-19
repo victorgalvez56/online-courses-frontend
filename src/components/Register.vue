@@ -4,7 +4,9 @@
       <img src="images/Group13.png" alt="" class="u-image u-image-default u-preserve-proportions u-image-2" data-image-width="381" data-image-height="381">
       <img src="images/batmsnxd1.png" alt="" class="u-image u-image-default u-image-3" data-image-width="602" data-image-height="632">
       <div class="u-form u-form-1">
-        <form @submit.prevent="register(user)" class="u-clearfix u-form-spacing-5 u-form-vertical u-inner-form" style="padding: 10px" source="email" name="form">
+        <form
+            @submit.prevent="submitFormRegister()"
+          class="u-clearfix u-form-spacing-5 u-form-vertical u-inner-form" style="padding: 10px" source="email" name="form">
           <div class="u-form-group u-form-name u-form-group-1">
             <input type="text" v-model="user.fullname"  id="name-03d8" name="name" class="u-border-1 u-border-grey-30 u-custom-font u-input u-input-rectangle u-radius-50 u-white u-input-1" required="" placeholder="Introduzca su nombre">
           </div>
@@ -56,7 +58,16 @@ export default {
     };
   },
   methods: {
-    ...mapActions("auth", ["register"])
+    ...mapActions("auth", ["register"]),
+    async submitFormRegister() {
+      try {
+        await this.register(this.user);
+        // this.cleanForm(this.category);
+       
+      } catch (error) {
+        console.warn("garaaa");
+      }
+    },
   }
 };
 </script>

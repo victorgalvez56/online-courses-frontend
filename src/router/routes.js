@@ -25,9 +25,14 @@ const routes = [
   {
     path: '/register',
     name: 'Register',
-    component: () => import('components/Register.vue'),
-    meta: {requireAuth: true}
-
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      {
+        path: '/',
+        component: () => import('components/Register.vue'),
+        meta: {requireAuth: true}
+      }
+    ],
   },
   {
     path: '*',

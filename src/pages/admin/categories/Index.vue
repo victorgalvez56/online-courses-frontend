@@ -205,18 +205,18 @@
               <q-item>
                 <q-item-section>
                   <q-item-label class="q-pb-xs">Tipo</q-item-label>
-                  <q-select
+                  <!-- <q-select
                     dense
                     label="Tipo"
                     outlined
                     :options="kinds.items"
-                    option-value="id"
-                    option-label="name"
+                    :option-value="(item) => item === null ? null : item.id"
+                    :option-label="(item) => item === null ? 'No hay tipo' : item.name"
                     v-model="category.type.id"
                     options-dense
                     lazy-rules
                     :rules="[val => !!val || 'El tipo es requerido']"
-                  ></q-select>
+                  ></q-select> -->
                 </q-item-section>
               </q-item>
             </q-list>

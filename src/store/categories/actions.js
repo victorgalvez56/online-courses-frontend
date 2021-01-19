@@ -37,3 +37,24 @@ export async function readCategories({ commit }) {
         return error
     }
 }
+
+
+export async function showCategoriesForm({ commit }, idkind) {
+    // try {
+    //     const { data } = await axiosInstance.post('/category', idKind)
+    //     readCategories({commit})
+    //     Notify.create({
+    //         message: 'Registro exitoso',
+    //         color: 'positive',
+    //         icon: 'check'
+    //     })
+    //     return data
+    // } catch (error) {
+    //     Notify.create({
+    //         message: 'Registro sin éxito',
+    //         color: 'negative',
+    //         icon: 'error'
+    //     })
+    //     return error
+    // }
+}

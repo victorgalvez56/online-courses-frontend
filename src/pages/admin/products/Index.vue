@@ -199,7 +199,20 @@
                   />
                 </q-item-section>
               </q-item>
-                 
+              <q-item>
+                <q-item-section>
+                  <q-item-label class="q-pb-xs">Precio</q-item-label>
+                  <q-input
+                    type="number"
+                    dense
+                    outlined
+                    v-model="product.price"
+                    label="S/."
+                    lazy-rules
+                    :rules="[val => !!val || 'El precio es requerido']"
+                  />
+                </q-item-section>
+              </q-item>   
               <q-item>
                 <q-item-section>
                   <q-item-label class="q-pb-xs">Tipo</q-item-label>
@@ -211,7 +224,7 @@
                     :option-value="(item) => item === null ? null : item.id"
                     :option-label="(item) => item === null ? 'No hay tipo' : item.name"
                     options-dense
-                    v-model="product.kind"
+                    @input="showCategoriesForm(product.kind)"
                     lazy-rules
                     :rules="[val => !!val || 'El tipo es requerido']"
                   ></q-select>
@@ -219,12 +232,12 @@
               </q-item>
               <q-item>
                 <q-item-section>
-                  <q-item-label class="q-pb-xs">Tipo</q-item-label>
+                  <q-item-label class="q-pb-xs">Categorias</q-item-label>
                   <q-input
                     dense
                     label="Tipo"
                     outlined
-                    v-model="product.kind"
+                    v-model="product.categorias"
                     options-dense
                     lazy-rules
                     :rules="[val => !!val || 'El tipo es requerido']"
@@ -243,7 +256,6 @@
 </template>
 
 <script>
-const stringOptions = ["Google", "Facebook", "Twitter", "Apple", "Oracle"];
 import { mapActions } from "vuex";
 import { mapState } from "vuex";
 import { exportFile } from "quasar";
@@ -260,18 +272,19 @@ function wrapCsvValue(val, formatFn) {
 }
 
 export default {
+  name: 'Index',
   data() {
     return {
       filter: "",
       product: {
         name: "",
         description: "",
+        price: "",
         stock: "0",
         kind: "",
-        category: ""
+        category: [],
       },
       model: null,
-      filterOptions: stringOptions,
       mode: "list",
       invoice: {},
       employee_dialog: false,
@@ -329,8 +342,7 @@ export default {
 
   mounted() {
     this.$store.dispatch("products/readProducts");
-        this.$store.dispatch("kinds/readKinds");
-
+    this.$store.dispatch("kinds/readKinds");
   },
   computed: {
         ...mapState("kinds", ["kinds"]),
@@ -338,6 +350,8 @@ export default {
   },
   methods: {
     ...mapActions("products", ["createProduct"]),
+    // ...mapActions("categories", ["showCategoriesForm"]),
+
     async submitFormProduct() {
       try {
         await this.createProduct(this.product);
@@ -419,7 +433,6 @@ export default {
         this.model = model;
       }
     },
-
     filterFn(val, update) {
       update(() => {
         if (val === "") {
@@ -431,6 +444,10 @@ export default {
           );
         }
       });
+    },
+    async showCategoriesForm(kinds){
+        // category =  await this.showCategoriesForm(kinds.id);
+        console.warn(kinds)
     }
   }
 };
