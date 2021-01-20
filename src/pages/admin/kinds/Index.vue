@@ -201,27 +201,30 @@
               </q-item>
               <q-item>
                 <q-item-section>
-          <q-uploader
-            id="uploader"
-            ref="refUploader"
-            accept=".jpg, image/*"
-            hide-upload-btn
-            multiple
-            style="width: 100%"
-            @added="onAddedImage"
-            @removed="onRemovedImage"
-          />
+                  <q-uploader
+                    id="uploader"
+                    ref="refUploader"
+                    accept=".jpg, image/*"
+                    hide-upload-btn
+                    multiple
+                    style="width: 100%"
+                    @added="onAddedImage"
+                    @removed="onRemovedImage"
+                  />
                 </q-item-section>
               </q-item>
             </q-list>
             <q-card-actions align="right" class="text-teal">
-              <q-btn label="Guardar" 
-               :loading="form.isProcessing"
-
-               type="submit" color="primary" />
+              <q-btn
+                label="Guardar"
+                :loading="form.isProcessing"
+                type="submit"
+                color="primary"
+              />
             </q-card-actions>
           </q-form>
         </q-card-section>
+        {{ kinds }}
       </q-card>
     </q-dialog>
   </q-page>
@@ -249,10 +252,10 @@ export default {
       filter: "",
       kind: {
         name: "",
-        description: "",
+        description: ""
       },
-            files: [],
-     form: {
+      files: [],
+      form: {
         isProcessing: false
       },
       mode: "list",
@@ -310,68 +313,32 @@ export default {
     ...mapState("kinds", ["kinds"])
   },
   methods: {
-    ...mapActions("kinds", ["createKind","setPictureKind"]),
+    ...mapActions("kinds", ["createKind", "setPictureKind"]),
 
     async submitFormKind() {
-
       try {
-        this.form.isProcessing = true
-
-        // const { data } = await this.createKind({
-        //   ...this.formData,
-        //   tags: Object.keys(this.tags)
-        //     .filter(t => this.tags[t].selected)
-        // })
-
-       let submitPictures =  await Promise.all(this.files.map(file => {
-          const fd = new FormData()
-          fd.append('file', file)
-          return this.setPictureKind(fd)
-        }
-        ))
-
-        // this.$app.notify.success(this.$t('post_created'))
-
-        // this.$router.push({
-        //   name: 'root'
-        // })
+        this.form.isProcessing = true;
+        var responseKind = await this.createKind(this.kind);
+        const fd = new FormData();
+        let submitPictures = await Promise.all(
+          this.files.map(file => {
+            fd.append("file", file);
+          })
+        );
+        fd.append("idKind", responseKind.id);
+        return this.setPictureKind(fd);
       } catch (_) {
-        console.warn(_)
+        console.warn(_);
       } finally {
-        this.form.isProcessing = false
+        this.form.isProcessing = false;
+        this.cleanForm(this.kind);
+        this.modal_add_kind = false;
       }
-
-      // try {
-      //     const fd = new FormData()
-      //   fd.append('files', this.kind.picture);
-
-      //   console.warn(dataPicture.getAll());
-      //   // var responseKind = await this.createKind(this.kind);
-      //   let files = []
-      //   files[0] = this.kind.picture
-
-      //   var picture = await this.setPictureKind(31,files);
-      //   console.warn(picture)
-      //   // this.cleanForm(this.kind);
-      //   // this.modal_add_kind = false;
-      // } catch (error) {
-      //   console.warn("garaaa");
-      // }
     },
-    async submitPictureForm(){
-
-    },
+    async submitPictureForm() {},
     cleanForm() {
       this.kind.name = "";
       this.kind.description = "";
-    },
-
-    onAddedImage (e) {
-      this.files.push(...e)
-    },
-
-    onRemovedImage (e) {
-      this.files = this.files.filter(f => f.name !== e[0].name)
     },
     exportTable() {
       const content = [this.columns.map(col => wrapCsvValue(col.label))]
@@ -404,6 +371,13 @@ export default {
           icon: "warning"
         });
       }
+    },
+    onAddedImage(e) {
+      this.files.push(...e);
+    },
+
+    onRemovedImage(e) {
+      this.files = this.files.filter(f => f.name !== e[0].name);
     }
   }
 };

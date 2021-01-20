@@ -345,7 +345,7 @@ export default {
     this.$store.dispatch("kinds/readKinds");
   },
   computed: {
-        ...mapState("kinds", ["kinds"]),
+    ...mapState("kinds", ["kinds"]),
     ...mapState("products", ["products"])
   },
   methods: {
