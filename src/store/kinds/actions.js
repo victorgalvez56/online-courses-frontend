@@ -36,7 +36,6 @@ export async function readKinds({ commit }) {
         return error
     }
 }
-
 export async function setPictureKind({ commit }, data) {
 
     return axiosInstance.put('/kind/media/'+data.get('idKind'), data.get('file'))
