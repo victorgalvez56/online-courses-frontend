@@ -84,9 +84,7 @@
 }
 
 @media (max-width: 991px) {
-  .u-section-1 {
-    min-height: 580px;
-  }
+ 
 
   .u-section-1 .u-text-1 {
     margin-top: 90px;

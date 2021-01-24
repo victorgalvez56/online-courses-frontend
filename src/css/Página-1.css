@@ -5,7 +5,7 @@
 
 .u-section-1 .u-image-1 {
   width: 547px;
-  height: 590px;
+  /* height: 590px; */
   margin: 14px calc(((100% - 1140px) / 2) + 287px) 0 auto;
 }
 
@@ -93,7 +93,7 @@
 
 @media (max-width: 1199px) {
   .u-section-1 .u-image-1 {
-    margin-top: 18px;
+    margin-top: 180px;
     margin-right: auto;
   }
 

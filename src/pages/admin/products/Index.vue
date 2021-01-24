@@ -212,7 +212,7 @@
                     :rules="[val => !!val || 'El precio es requerido']"
                   />
                 </q-item-section>
-              </q-item>   
+              </q-item>
               <q-item>
                 <q-item-section>
                   <q-item-label class="q-pb-xs">Tipo</q-item-label>
@@ -221,10 +221,13 @@
                     label="Tipo"
                     outlined
                     :options="kinds.items"
-                    :option-value="(item) => item === null ? null : item.id"
-                    :option-label="(item) => item === null ? 'No hay tipo' : item.name"
+                    :option-value="item => (item === null ? null : item.id)"
+                    :option-label="
+                      item => (item === null ? 'No hay tipo' : item.name)
+                    "
                     options-dense
-                    @input="showCategoriesForm(product.kind)"
+                    v-model="kind"
+                    @input="showCategoriesForm(kind)"
                     lazy-rules
                     :rules="[val => !!val || 'El tipo es requerido']"
                   ></q-select>
@@ -233,15 +236,33 @@
               <q-item>
                 <q-item-section>
                   <q-item-label class="q-pb-xs">Categorias</q-item-label>
-                  <q-input
-                    dense
-                    label="Tipo"
-                    outlined
-                    v-model="product.categorias"
-                    options-dense
-                    lazy-rules
-                    :rules="[val => !!val || 'El tipo es requerido']"
-                  ></q-input>
+                  <q-select
+                    filled
+                    multiple
+                    v-model="objCategories"
+                    :options="categories"
+                    :option-value="item => (item === null ? null : item.id)"
+                    :option-label="
+                      item => (item === null ? 'Null value' : item.name)
+                    "
+                    counter
+                    hint="Cantidad de categorías"
+                  />
+                </q-item-section>
+              </q-item>
+              <q-item>
+                <q-item-section>
+                  <q-item-label class="q-pb-xs">Imagenes</q-item-label>
+                  <q-uploader
+                    id="uploader"
+                    ref="refUploader"
+                    accept=".jpg, image/*"
+                    hide-upload-btn
+                    multiple
+                    style="width: 100%"
+                    @added="onAddedImage"
+                    @removed="onRemovedImage"
+                  />
                 </q-item-section>
               </q-item>
             </q-list>
@@ -272,7 +293,7 @@ function wrapCsvValue(val, formatFn) {
 }
 
 export default {
-  name: 'Index',
+  name: "Index",
   data() {
     return {
       filter: "",
@@ -281,9 +302,9 @@ export default {
         description: "",
         price: "",
         stock: "0",
-        kind: "",
-        category: [],
+        categories: []
       },
+      kind: "",
       model: null,
       mode: "list",
       invoice: {},
@@ -336,7 +357,10 @@ export default {
       ],
       pagination: {
         rowsPerPage: 10
-      }
+      },
+      categories: [],
+      objCategories: [],
+      files:[]
     };
   },
 
@@ -349,16 +373,35 @@ export default {
     ...mapState("products", ["products"])
   },
   methods: {
-    ...mapActions("products", ["createProduct"]),
-    // ...mapActions("categories", ["showCategoriesForm"]),
+    ...mapActions("products", ["createProduct",'setPictureProduct']),
+    ...mapActions("categories", ["showCategoriesbyKind"]),
 
     async submitFormProduct() {
       try {
-        await this.createProduct(this.product);
-        this.cleanForm(this.product);
+        this.objCategories.forEach(element => {
+          this.product.categories.push(element.id);
+        });
+
+        var responseProduct = await this.createProduct(this.product);
+        const fd = new FormData();
+        let submitPictures = await Promise.all(
+          this.files.map(file => {
+            fd.append("file", file);
+          })
+        );
+        const data = [responseProduct.id, fd];
+        console.warn(data);
+
+
+        return this.setPictureProduct(data);
         this.modal_add_product = false;
-      } catch (error) {
-        console.warn("garaaa");
+
+      } catch (_) {
+        console.warn(_);
+      } finally {
+        // this.form.isProcessing = false;
+        this.cleanForm(this.kind);
+        this.modal_add_kind = false;
       }
     },
     cleanForm() {
@@ -400,19 +443,6 @@ export default {
       }
     },
     createValue(val, done) {
-      // Calling done(var) when new-value-mode is not set or is "add", or done(var, "add") adds "var" content to the model
-      // and it resets the input textbox to empty string
-      // ----
-      // Calling done(var) when new-value-mode is "add-unique", or done(var, "add-unique") adds "var" content to the model
-      // only if is not already set and it resets the input textbox to empty string
-      // ----
-      // Calling done(var) when new-value-mode is "toggle", or done(var, "toggle") toggles the model with "var" content
-      // (adds to model if not already in the model, removes from model if already has it)
-      // and it resets the input textbox to empty string
-      // ----
-      // If "var" content is undefined/null, then it doesn't tampers with the model
-      // and only resets the input textbox to empty string
-
       if (val.length > 0) {
         const model = (this.model || []).slice();
 
@@ -445,9 +475,18 @@ export default {
         }
       });
     },
-    async showCategoriesForm(kinds){
-        // category =  await this.showCategoriesForm(kinds.id);
-        console.warn(kinds)
+    async showCategoriesForm(kinds) {
+      this.categories = [];
+      const categoriesForm = await this.showCategoriesbyKind(kinds.id);
+      categoriesForm.data.categories.forEach(element => {
+        this.categories.push(element);
+      });
+    },
+    onAddedImage(e) {
+      this.files.push(...e);
+    },
+    onRemovedImage(e) {
+      this.files = this.files.filter(f => f.name !== e[0].name);
     }
   }
 };

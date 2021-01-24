@@ -74,11 +74,11 @@
           <q-td :props="props">
             <q-chip
               :color="
-                props.row.status == 'Active'
+                props.row.status == 'true'
                   ? 'green'
-                  : props.row.status == 'Inactive'
+                  : props.row.status == 'false'
                   ? 'red'
-                  : 'grey'
+                  : 'green'
               "
               text-color="white"
               dense
@@ -92,7 +92,7 @@
         <template v-slot:body-cell-detail="props">
           <q-td :props="props">
             <q-btn
-              @click="employee_dialog = true"
+              @click="showDetails(props)"
               dense
               round
               color="secondary"
@@ -114,7 +114,7 @@
       <q-card class="my-card" flat bordered>
         <q-card-section>
           <div class="text-h6">
-            Detalle producto
+            Detalle Tipo
             <q-btn
               round
               flat
@@ -128,18 +128,17 @@
         </q-card-section>
         <q-card-section horizontal>
           <q-card-section class="q-pt-xs">
-            <div class="text-overline">US Region</div>
-            <div class="text-h5 q-mt-sm q-mb-xs">Mayank Patel</div>
+            <div class="text-overline">ga</div>
+            <div class="text-h5 q-mt-sm q-mb-xs">{{detailsKind.name}}</div>
             <div class="text-caption text-grey">
-              Sales and Marketing Executive | Graduate and past committee |
-              Keynote speaker on Selling and Recruiting Topics
+              {{detailsKind.description}}
             </div>
           </q-card-section>
 
           <q-card-section class="col-5 flex flex-center">
             <q-img
               class="rounded-borders"
-              src="https://cdn.quasar.dev/img/boy-avatar.png"
+              :src="detailsKind.path"
             />
           </q-card-section>
         </q-card-section>
@@ -254,6 +253,11 @@ export default {
         name: "",
         description: ""
       },
+      detailsKind:{
+        name:"",
+        description:"",
+        file:""
+      },
       files: [],
       form: {
         isProcessing: false
@@ -313,7 +317,7 @@ export default {
     ...mapState("kinds", ["kinds"])
   },
   methods: {
-    ...mapActions("kinds", ["createKind", "setPictureKind"]),
+    ...mapActions("kinds", ["createKind", "setPictureKind", "getKind","getPictureKind"]),
 
     async submitFormKind() {
       try {
@@ -325,8 +329,9 @@ export default {
             fd.append("file", file);
           })
         );
-        fd.append("idKind", responseKind.id);
-        return this.setPictureKind(fd);
+        const  data = [responseKind.id,fd]
+        console.warn(data)
+        return this.setPictureKind(data);
       } catch (_) {
         console.warn(_);
       } finally {
@@ -370,6 +375,24 @@ export default {
           color: "negative",
           icon: "warning"
         });
+      }
+    },
+    async showDetails(props) {
+      try {
+        this.employee_dialog = true;
+        this.form.isProcessing = true;
+        let idKind = props.row.id;
+        const kind = await this.getKind(idKind);
+
+        const pictureKind =  await this.getPictureKind(kind.file)
+        this.detailsKind.name = kind.data.name
+        this.detailsKind.description = kind.data.description
+        this.detailsKind.path = 'http://0.0.0.0:4000/api/kind/media/'+kind.data.file
+        return kind;
+      } catch (_) {
+        console.warn(_);
+      } finally {
+        this.form.isProcessing = false;
       }
     },
     onAddedImage(e) {

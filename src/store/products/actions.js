@@ -27,6 +27,7 @@ export async function readProducts({ commit }) {
     try {
         const { data } = await axiosInstance.get('/item')
         commit('SET_PRODUCTS', data)
+        console.warn(data)
         return  data
     } catch (error) {
         Notify.create({
@@ -36,4 +37,9 @@ export async function readProducts({ commit }) {
         })
         return error
     }
+}
+
+export async function setPictureProduct({ commit }, data) {
+  
+    return axiosInstance.put('/item/media/'+data[0], data[1])
 }
