@@ -223,7 +223,6 @@
             </q-card-actions>
           </q-form>
         </q-card-section>
-        {{ kinds }}
       </q-card>
     </q-dialog>
   </q-page>
