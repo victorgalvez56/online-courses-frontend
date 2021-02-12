@@ -1,10 +1,10 @@
 export default {
-  path: '/',
-  name: 'home',
-  component: () => import('src/pages/home/Index'),
+  path: '/buscar_tipo',
+  name: 'buscar_tipo',
+  component: () => import('layouts/MainLayout'),
   children: [
     {
-      path: 'buscar_tipo',
+      path: '/:id',
       name: 'searchbykind',
       component: () => import('pages/admin/SearchbyKind')
     },

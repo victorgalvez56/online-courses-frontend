@@ -17,7 +17,7 @@
         <!--            <img src="https://cdn.quasar.dev/logo/svg/quasar-logo.svg">-->
         <!--          </q-avatar>-->
 
-        <q-toolbar-title>CRM Admin</q-toolbar-title>
+        <q-toolbar-title>DeliveryApp</q-toolbar-title>
         <q-btn
           class="q-mr-xs"
           flat
@@ -39,7 +39,6 @@
           round
           dense
           icon="exit_to_app"
-          @click="logoutNotify"
           to="/"
         />
       </q-toolbar>
@@ -176,11 +175,7 @@ export default {
     };
   },
   methods: {
-    logoutNotify() {
-      this.$q.notify({
-        message: "Logged out"
-      });
-    }
+ 
   }
 };
 </script>

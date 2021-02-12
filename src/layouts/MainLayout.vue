@@ -5,7 +5,7 @@
       :class="$q.dark.isActive ? 'header_dark' : 'header_normal'"
     >
       <q-toolbar>
-        <q-toolbar-title>Delivery</q-toolbar-title>
+        <q-toolbar-title>DeliveryApp</q-toolbar-title>
         <q-btn
           class="q-mr-xs"
           flat
@@ -13,14 +13,8 @@
           @click="$q.dark.toggle()"
           :icon="$q.dark.isActive ? 'nights_stay' : 'wb_sunny'"
         />
-        <q-btn
-          flat
-          dense
-          icon="exit_to_app"
-          label="Ingresar"
-          @click="logoutNotify"
-          to="/sign"
-        />
+        <q-btn flat dense icon="exit_to_app"  label="Ingresar" to="/login" />
+        <q-btn flat dense icon="how_to_reg" label="Registrarse" to="/register" />
       </q-toolbar>
     </q-header>
 
@@ -45,13 +39,7 @@ export default {
       left: false
     };
   },
-  methods: {
-    logoutNotify() {
-      this.$q.notify({
-        message: "Logged out"
-      });
-    }
-  }
+  methods: {}
 };
 </script>
 
@@ -86,7 +74,4 @@ body {
   background: #e43853;
 }
 
-.header_dark {
-  background: linear-gradient(145deg, rgb(61, 14, 42) 15%, rgb(14, 43, 78) 70%);
-}
 </style>

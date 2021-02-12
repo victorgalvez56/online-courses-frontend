@@ -2,7 +2,7 @@
   <q-page class="q-pa-sm">
     <q-card>
       <q-table
-        title="Listado de productos"
+        title="Listado de Productos"
         :data="products.items"
         :hide-header="mode === 'grid'"
         :columns="columns"
@@ -61,14 +61,6 @@
               >{{ mode === "grid" ? "List" : "Grid" }}
             </q-tooltip>
           </q-btn>
-
-          <q-btn
-            color="primary"
-            icon-right="archive"
-            label="Exportar a csv"
-            no-caps
-            @click="exportTable"
-          />
         </template>
         <template v-slot:body-cell-status="props">
           <q-td :props="props">
@@ -381,7 +373,6 @@ export default {
         this.objCategories.forEach(element => {
           this.product.categories.push(element.id);
         });
-
         var responseProduct = await this.createProduct(this.product);
         const fd = new FormData();
         let submitPictures = await Promise.all(
@@ -390,17 +381,18 @@ export default {
           })
         );
         const data = [responseProduct.id, fd];
-        console.warn(data);
+
+        this.modal_add_product = false;
+        this.cleanForm();
 
 
         return this.setPictureProduct(data);
-        this.modal_add_product = false;
 
       } catch (_) {
         console.warn(_);
       } finally {
         // this.form.isProcessing = false;
-        this.cleanForm(this.kind);
+        this.cleanForm();
         this.modal_add_kind = false;
       }
     },
@@ -409,6 +401,7 @@ export default {
       this.product.description = "";
       this.product.category = "";
       this.product.description = "";
+      
     },
     exportTable() {
       const content = [this.columns.map(col => wrapCsvValue(col.label))]
@@ -478,6 +471,7 @@ export default {
     async showCategoriesForm(kinds) {
       this.categories = [];
       const categoriesForm = await this.showCategoriesbyKind(kinds.id);
+      console.warn(categoriesForm)
       categoriesForm.data.categories.forEach(element => {
         this.categories.push(element);
       });

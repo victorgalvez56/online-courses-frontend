@@ -38,7 +38,6 @@ export async function readKinds({ commit }) {
 }
 export async function setPictureKind({ commit }, data) {
   
-    console.warn(data)
     return axiosInstance.put('/kind/media/'+data[0], data[1])
 }
 

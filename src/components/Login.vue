@@ -1,29 +1,60 @@
 <template>
-  <div>
-        <section class="u-clearfix u-palette-3-base u-section-1" id="sec-c814">
-      <img src="images/Rectangle58.png" alt="" class="u-image u-image-round u-radius-50 u-image-1" data-image-width="529" data-image-height="712">
-      <img src="images/Group13.png" alt="" class="u-image u-image-default u-preserve-proportions u-image-2" data-image-width="381" data-image-height="381">
-      <img src="images/batmsnxd1.png" alt="" class="u-image u-image-default u-image-3" data-image-width="602" data-image-height="632">
-      <div class="u-form u-form-1">
-        <form
-            @submit.prevent="login(user)"
-          class="u-clearfix u-form-spacing-5 u-form-vertical u-inner-form" style="padding: 10px" source="email" name="form">
-          <div class="u-form-group u-form-name u-form-group-3">
-            <input type="text" v-model="user.username" placeholder="Introduzca su usuario" id="name-1d13" name="name-1" class="u-border-1 u-border-grey-30 u-custom-font u-input u-input-rectangle u-radius-50 u-white u-input-3" required="">
+  <q-page class="flex flex-center">
+    <q-card
+      class="login-form"
+      v-bind:style="$q.platform.is.mobile ? { width: '80%' } : { width: '30%' }"
+    >
+      <q-img src="https://image.freepik.com/vector-gratis/servicio-entrega-concepto-mascaras_23-2148499097.jpg"></q-img>
+      <q-card-section>
+        <q-avatar
+          size="74px"
+          class="absolute"
+          style="top: 0;right: 25px;transform: translateY(-50%);"
+        >
+          <img src="https://png.pngtree.com/png-vector/20190114/ourlarge/pngtree-vector-delivery-truck-icon-png-image_314439.jpg" />
+        </q-avatar>
+        <div class="row no-wrap items-center">
+          <div class="col text-h6 ellipsis font-poppins ">
+            Ingresar
           </div>
-          <div class="u-form-group u-form-group-4">
-            <input type="text" v-model="user.password"  placeholder="Introduzca su password" id="text-71a7" name="text" class="u-border-1 u-border-grey-30 u-custom-font u-input u-input-rectangle u-radius-50 u-white u-input-4">
-          </div>
-          <div class="u-align-center u-form-group u-form-submit">
-            <button type="submit" class="u-btn u-btn-submit u-button-style">Ingresar</button>
+        </div>
+      </q-card-section>
+      <q-card-section>
+         <form
+            @submit.prevent="login(user)" class="q-gutter-md">
+          <q-input filled
+                    class="font-poppins"
+
+           v-model="user.username" label="Usuario" lazy-rules />
+
+          <q-input
+          class="font-poppins"
+            type="password"
+            filled
+            v-model="user.password"
+            label="Contraseña"
+            lazy-rules
+          />
+          <div>
+            <button type="submit" class="u-btn u-btn-submit u-button-style font-poppins">
+              Ingresar
+            </button>
+            <a
+              style="font-size: 30px;"
+              class="float-right"
+              href="https://png.pngtree.com/png-vector/20190114/ourlarge/pngtree-vector-delivery-truck-icon-png-image_314439.jpg"
+              target="_blank"
+              title="Donate"
+              ><i class="fas fa-heart" style="color: #eb5daa"></i
+            ></a>
           </div>
         </form>
-      </div>
-      <h2 class="u-align-center u-heading-font u-subtitle u-text u-text-palette-1-base u-text-1">Registrarse</h2>
-    </section>
-  </div>
+      </q-card-section>
+    </q-card>
+  </q-page>
 </template>
 
+<script type="text/javascript"></script>
 <script>
 import { mapActions } from "vuex";
 
@@ -32,18 +63,31 @@ export default {
     return {
       user: {
         username: "",
-        password: "",
-      },
+        password: ""
+      }
     };
   },
   methods: {
     ...mapActions("auth", ["login"]),
-  },
+  }
 };
 </script>
-
-
 <style>
- @import '../css/Página-1.css';
-
+#particles-js {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50% 50%;
+}
+.normal_gradient {
+  background: #e5e5e5;
+}
+.dark_gradient {
+  background: #e5e5e5;
+}
+.login-form {
+  position: absolute;
+}
 </style>

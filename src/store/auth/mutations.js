@@ -3,7 +3,7 @@ export function auth_request(state) {
     state.status = 'loading'
 }
 export function auth_success(state,token,user) {
-
+    this.$router.push({ path: '/admin' })
     state.status = 'success'
     state.token = token
     state.user = user

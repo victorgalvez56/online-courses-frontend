@@ -1,41 +1,99 @@
 <template>
-    <section class="u-clearfix u-palette-3-base u-section-1" id="sec-c814">
-      <img src="images/Rectangle58.png" alt="" class="u-image u-image-round u-radius-50 u-image-1" data-image-width="529" data-image-height="712">
-      <img src="images/Group13.png" alt="" class="u-image u-image-default u-preserve-proportions u-image-2" data-image-width="381" data-image-height="381">
-      <img src="images/batmsnxd1.png" alt="" class="u-image u-image-default u-image-3" data-image-width="602" data-image-height="632">
-      <div class="u-form u-form-1">
-        <form
-            @submit.prevent="submitFormRegister()"
-          class="u-clearfix u-form-spacing-5 u-form-vertical u-inner-form" style="padding: 10px" source="email" name="form">
-          <div class="u-form-group u-form-name u-form-group-1">
-            <input type="text" v-model="user.fullname"  id="name-03d8" name="name" class="u-border-1 u-border-grey-30 u-custom-font u-input u-input-rectangle u-radius-50 u-white u-input-1" required="" placeholder="Introduzca su nombre">
+  <q-page-container>
+    <q-page class="flex bg-image flex-center">
+      <q-card
+        class="login-form"
+        v-bind:style="
+          $q.platform.is.mobile ? { width: '80%' } : { width: '30%' }
+        "
+      >
+        <q-img
+          src="https://image.freepik.com/vector-gratis/servicio-entrega-concepto-mascaras_23-2148499097.jpg"
+        ></q-img>
+        <q-card-section>
+          <q-avatar
+            size="74px"
+            class="absolute"
+            style="top: 0;right: 25px;transform: translateY(-50%);"
+          >
+            <img
+              src="https://png.pngtree.com/png-vector/20190114/ourlarge/pngtree-vector-delivery-truck-icon-png-image_314439.jpg"
+            />
+          </q-avatar>
+          <div class="row no-wrap items-center">
+            <div class="col text-h6 ellipsis text-primary">
+              Registrarse
+            </div>
           </div>
-          <div class="u-form-email u-form-group u-form-group-2">
-            <input type="email" v-model="user.email"  placeholder="Introduzca un correo electrónico" id="email-7093" name="email" class="u-border-1 u-border-grey-30 u-custom-font u-input u-input-rectangle u-radius-50 u-white u-input-2" required="">
-          </div>
-          <div class="u-form-group u-form-name u-form-group-3">
-            <input type="text" v-model="user.username" placeholder="Introduzca su usuario" id="name-1d13" name="name-1" class="u-border-1 u-border-grey-30 u-custom-font u-input u-input-rectangle u-radius-50 u-white u-input-3" required="">
-          </div>
-          <div class="u-form-group u-form-group-4">
-            <input type="text" v-model="user.password"  placeholder="Introduzca su password" id="text-71a7" name="text" class="u-border-1 u-border-grey-30 u-custom-font u-input u-input-rectangle u-radius-50 u-white u-input-4">
-          </div>
-          <div class="u-form-group u-form-group-5">
-            <input type="text" v-model="user.passwordConfirmation"  placeholder="Confirme password" id="text-a2c5" name="text-1" class="u-border-1 u-border-grey-30 u-custom-font u-input u-input-rectangle u-radius-50 u-white u-input-5">
-          </div>
-          <div class="u-form-group u-form-group-6">
-            <input type="text" v-model="user.phone" placeholder="Introduzca su teléfono" id="text-9441" name="text-2" class="u-border-1 u-border-grey-30 u-custom-font u-input u-input-rectangle u-radius-50 u-white u-input-6">
-          </div>
-          <div class="u-form-group u-form-group-7">
-            <input type="text" v-model="user.document" placeholder="Introduzca su dni" id="text-bf94" name="text-3" class="u-border-1 u-border-grey-30 u-custom-font u-input u-input-rectangle u-radius-50 u-white u-input-7">
-          </div>
-          <div class="u-align-center u-form-group u-form-submit">
-            <button type="submit" class="u-btn u-btn-submit u-button-style">Registrar</button>
-          </div>
-        </form>
-      </div>
-      <h2 class="u-align-center u-heading-font u-subtitle u-text u-text-palette-1-base u-text-1">Registrarse</h2>
-    </section>
-
+        </q-card-section>
+        <q-card-section>
+          <form @submit.prevent="submitFormRegister()" class="q-gutter-md">
+            <q-input
+              filled
+              v-model="user.fullname"
+              label="Nombre"
+              lazy-rules
+            />
+            <q-input
+              type="email"
+              filled
+              v-model="user.email"
+              label="Email"
+              lazy-rules
+            />
+            <q-input
+              type="text"
+              filled
+              v-model="user.username"
+              label="Usuario"
+              lazy-rules
+            />
+            <q-input
+              type="password"
+              filled
+              v-model="user.password"
+              label="Contraseña"
+              lazy-rules
+            />
+            <q-input
+              type="password"
+              filled
+              v-model="user.passwordConfirmation"
+              label="Confirmación Contraseña"
+              lazy-rules
+            />
+            <q-input
+              type="number"
+              filled
+              v-model="user.phone"
+              label="Teléfono"
+              lazy-rules
+            />
+            <q-input
+              type="number"
+              filled
+              v-model="user.document"
+              label="Dni"
+              lazy-rules
+            />
+            <div>
+              <button filled type="submit" class="u-btn u-btn-submit bg-primary">
+                Guardar
+              </button>
+              <a
+                style="font-size: 30px;"
+                class="float-right"
+                href="https://png.pngtree.com/png-vector/20190114/ourlarge/pngtree-vector-delivery-truck-icon-png-image_314439.jpg"
+                target="_blank"
+                title="Donate"
+                ><i class="fas fa-heart" style="color: #eb5daa"></i
+              ></a>
+            </div>
+          </form>
+        </q-card-section>
+      </q-card>
+    </q-page>
+  </q-page-container>
 </template>
 
 <script>
@@ -63,16 +121,14 @@ export default {
       try {
         await this.register(this.user);
         // this.cleanForm(this.category);
-       
       } catch (error) {
         console.warn("garaaa");
       }
-    },
+    }
   }
 };
 </script>
 
 <style>
- @import '../css/Página-1.css';
-
+@import "../css/Página-1.css";
 </style>

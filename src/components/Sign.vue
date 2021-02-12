@@ -3,16 +3,29 @@
     <div
       class="u-clearfix u-sheet u-valign-middle-md u-valign-middle-sm u-valign-middle-xl u-valign-middle-xs u-sheet-1"
     >
-      <div class="u-clearfix u-expanded-width u-gutter-0 u-layout-wrap u-layout-wrap-1">
+      <div
+        class="u-clearfix u-expanded-width u-gutter-0 u-layout-wrap u-layout-wrap-1"
+      >
         <div class="u-layout">
           <div class="u-layout-row">
             <div
               class="u-align-center u-container-style u-layout-cell u-right-cell u-size-30 u-layout-cell-1"
             >
-              <q-card c>
-                <q-tabs v-model="tab" inline-label class="bg-yellow shadow-2">
-                  <q-tab name="mails" label="Ingresar" icon="login" />
-                  <q-tab name="alarms" label="Registro" icon="person_add" />
+              <q-card>
+                <q-tabs v-model="tab">
+                  <q-tab
+                    class="font-poppins"
+                    name="mails"
+                    label="Ingresar"
+                    active-bg-color
+                    icon="login"
+                  />
+                  <q-tab
+                    name="alarms"
+                    class="font-poppins"
+                    label="Registro"
+                    icon="person_add"
+                  />
                 </q-tabs>
 
                 <q-separator />
@@ -20,18 +33,21 @@
                 <q-tab-panels v-model="tab" animated>
                   <q-tab-panel name="mails">
                     <h2 class="u-text u-text-1">
-                      <span class="u-text-palette-2-base">Iniciar</span>&nbsp;<span
-                        class="u-text-black"
-                        >Sesión</span
-                      >
+                      <span class="u-text-palette-2-base">Iniciar</span
+                      >&nbsp;<span class="u-text-black">Sesión</span>
                       <br />
                     </h2>
                     <div class="u-form u-form-1">
-                      <q-form class="registerProduct" @submit.prevent="login(user)">
+                      <q-form
+                        class="registerProduct"
+                        @submit.prevent="login(user)"
+                      >
                         <q-list style="text-align: left;">
                           <q-item>
                             <q-item-section>
-                              <q-item-label class="q-pb-xs">Nombre</q-item-label>
+                              <q-item-label class="q-pb-xs"
+                                >Nombre</q-item-label
+                              >
                               <q-input
                                 dense
                                 outlined
@@ -42,7 +58,9 @@
                           </q-item>
                           <q-item>
                             <q-item-section>
-                              <q-item-label class="q-pb-xs">Description</q-item-label>
+                              <q-item-label class="q-pb-xs"
+                                >Description</q-item-label
+                              >
                               <q-input
                                 dense
                                 outlined
@@ -52,7 +70,10 @@
                             </q-item-section>
                           </q-item>
                         </q-list>
-                        <q-card-actions align="right" class="text-teal vertical-middle	">
+                        <q-card-actions
+                          align="right"
+                          class="text-teal vertical-middle	"
+                        >
                           <q-btn
                             label="Guardar"
                             type="submit"
@@ -76,8 +97,12 @@
             <div
               class="u-container-style u-expand-resize u-layout-cell u-left-cell u-size-30 u-layout-cell-2"
             >
-              <div class="u-container-layout u-valign-middle-xl u-container-layout-2">
-                <div class="u-shape u-shape-svg u-text-palette-2-base u-shape-1">
+              <div
+                class="u-container-layout u-valign-middle-xl u-container-layout-2"
+              >
+                <div
+                  class="u-shape u-shape-svg u-text-palette-2-base u-shape-1"
+                >
                   <svg
                     class="u-svg-link"
                     preserveAspectRatio="none"
@@ -118,7 +143,9 @@
                   data-image-width="1200"
                   data-image-height="800"
                 ></div>
-                <div class="u-custom-color-3 u-shape u-shape-circle u-shape-2"></div>
+                <div
+                  class="u-custom-color-3 u-shape u-shape-circle u-shape-2"
+                ></div>
               </div>
             </div>
           </div>
@@ -136,15 +163,19 @@ export default {
     return {
       user: {
         username: "",
-        password: "",
+        password: ""
       },
-      tab: "mails",
+      tab: "mails"
     };
   },
   methods: {
-    ...mapActions("auth", ["login"]),
-  },
+    ...mapActions("auth", ["login"])
+  }
 };
 </script>
 
-<style></style>
+<style>
+.hoverButton:hover {
+  background: inherit;
+}
+</style>

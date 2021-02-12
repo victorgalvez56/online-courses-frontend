@@ -39,8 +39,8 @@ export async function readCategories({ commit }) {
 }
 
 
-export async function showCategoriesbyKind({ commit }, relactions) {
+export async function showCategoriesbyKind({ commit }, idKind) {
 
-        return axiosInstance.get('/kind/8?relations=["categories"]')
+        return axiosInstance.get('/kind/'+idKind+'?relations=["categories"]')
 
 }

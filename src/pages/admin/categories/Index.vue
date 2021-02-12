@@ -45,8 +45,7 @@
               }}
             </q-tooltip>
           </q-btn>
-
-          <q-btn
+<q-btn
             flat
             round
             dense
@@ -61,14 +60,6 @@
               >{{ mode === "grid" ? "List" : "Grid" }}
             </q-tooltip>
           </q-btn>
-
-          <q-btn
-            color="primary"
-            icon-right="archive"
-            label="Exportar a csv"
-            no-caps
-            @click="exportTable"
-          />
         </template>
         <template v-slot:body-cell-status="props">
           <q-td :props="props">
@@ -110,49 +101,6 @@
         </template>
       </q-table>
     </q-card>
-    <q-dialog v-model="employee_dialog">
-      <q-card class="my-card" flat bordered>
-        <q-card-section>
-          <div class="text-h6">
-            Detalle producto
-            <q-btn
-              round
-              flat
-              dense
-              icon="close"
-              class="float-right"
-              color="grey-8"
-              v-close-popup
-            ></q-btn>
-          </div>
-        </q-card-section>
-        <q-card-section horizontal>
-          <q-card-section class="q-pt-xs">
-            <div class="text-overline">US Region</div>
-            <div class="text-h5 q-mt-sm q-mb-xs">Mayank Patel</div>
-            <div class="text-caption text-grey">
-              Sales and Marketing Executive | Graduate and past committee |
-              Keynote speaker on Selling and Recruiting Topics
-            </div>
-          </q-card-section>
-
-          <q-card-section class="col-5 flex flex-center">
-            <q-img
-              class="rounded-borders"
-              src="https://cdn.quasar.dev/img/boy-avatar.png"
-            />
-          </q-card-section>
-        </q-card-section>
-
-        <q-separator />
-
-        <q-card-section>
-          Assessing clients needs and present suitable promoted products.
-          Liaising with and persuading targeted doctors to prescribe our
-          products utilizing effective sales skills.
-        </q-card-section>
-      </q-card>
-    </q-dialog>
     <q-dialog v-model="modal_add_category">
       <q-card style="width: 600px; max-width: 60vw;">
         <q-card-section>
@@ -224,7 +172,6 @@
               <q-btn label="Guardar" type="submit" color="primary" />
             </q-card-actions>
           </q-form>
-          {{kinds.items[0].id}}
         </q-card-section>
       </q-card>
     </q-dialog>
@@ -236,16 +183,6 @@ import { mapActions } from "vuex";
 import { mapState } from "vuex";
 import { exportFile } from "quasar";
 
-function wrapCsvValue(val, formatFn) {
-  let formatted = formatFn !== void 0 ? formatFn(val) : val;
-
-  formatted =
-    formatted === void 0 || formatted === null ? "" : String(formatted);
-
-  formatted = formatted.split('"').join('""');
-
-  return `"${formatted}"`;
-}
 
 export default {
   data() {

@@ -61,14 +61,6 @@
               >{{ mode === "grid" ? "List" : "Grid" }}
             </q-tooltip>
           </q-btn>
-
-          <q-btn
-            color="primary"
-            icon-right="archive"
-            label="Exportar a csv"
-            no-caps
-            @click="exportTable"
-          />
         </template>
         <template v-slot:body-cell-status="props">
           <q-td :props="props">
@@ -128,27 +120,24 @@
         </q-card-section>
         <q-card-section horizontal>
           <q-card-section class="q-pt-xs">
-            <div class="text-overline">ga</div>
-            <div class="text-h5 q-mt-sm q-mb-xs">{{detailsKind.name}}</div>
+            <div class="text-h5 q-mt-sm q-mb-xs">{{ detailsKind.name }}</div>
             <div class="text-caption text-grey">
-              {{detailsKind.description}}
+              {{ detailsKind.description }}
             </div>
           </q-card-section>
 
           <q-card-section class="col-5 flex flex-center">
-            <q-img
-              class="rounded-borders"
-              :src="detailsKind.path"
-            />
+            <q-img class="rounded-borders" :src="detailsKind.path" />
           </q-card-section>
         </q-card-section>
 
         <q-separator />
 
         <q-card-section>
-          Assessing clients needs and present suitable promoted products.
-          Liaising with and persuading targeted doctors to prescribe our
-          products utilizing effective sales skills.
+          Evaluar las necesidades de los clientes y presentar los productos
+          promocionados adecuados. Servir de enlace y persuadir a los médicos
+          seleccionados para que prescriban nuestros productos que utilizan
+          habilidades de ventas efectivas.
         </q-card-section>
       </q-card>
     </q-dialog>
@@ -252,10 +241,10 @@ export default {
         name: "",
         description: ""
       },
-      detailsKind:{
-        name:"",
-        description:"",
-        file:""
+      detailsKind: {
+        name: "",
+        description: "",
+        file: ""
       },
       files: [],
       form: {
@@ -316,7 +305,12 @@ export default {
     ...mapState("kinds", ["kinds"])
   },
   methods: {
-    ...mapActions("kinds", ["createKind", "setPictureKind", "getKind","getPictureKind"]),
+    ...mapActions("kinds", [
+      "createKind",
+      "setPictureKind",
+      "getKind",
+      "getPictureKind"
+    ]),
 
     async submitFormKind() {
       try {
@@ -328,8 +322,8 @@ export default {
             fd.append("file", file);
           })
         );
-        const  data = [responseKind.id,fd]
-        console.warn(data)
+        const data = [responseKind.id, fd];
+        console.warn(data);
         return this.setPictureKind(data);
       } catch (_) {
         console.warn(_);
@@ -383,10 +377,12 @@ export default {
         let idKind = props.row.id;
         const kind = await this.getKind(idKind);
 
-        const pictureKind =  await this.getPictureKind(kind.file)
-        this.detailsKind.name = kind.data.name
-        this.detailsKind.description = kind.data.description
-        this.detailsKind.path = 'http://0.0.0.0:4000/api/kind/media/'+kind.data.file
+        const pictureKind = await this.getPictureKind(kind.file);
+        this.detailsKind.name = kind.data.name;
+        this.detailsKind.description = kind.data.description;
+        this.detailsKind.path =
+          "https://api-delivery.rvalcami.cloud/api/kind/media/" +
+          kind.data.file;
         return kind;
       } catch (_) {
         console.warn(_);

@@ -1,5 +1,7 @@
 
 import dashboardPage from './pages/admin'
+import orders from './pages/orders'
+
 
 const routes = [
   {
@@ -18,9 +20,14 @@ const routes = [
   {
     path: '/login',
     name: 'Login',
-    component: () => import('components/Login.vue'),
-    meta: {requireAuth: true}
-
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      {
+        path: '/',
+        component: () => import('components/Login.vue'),
+        meta: {requireAuth: true}
+      }
+    ],
   },
   {
     path: '/register',
@@ -38,7 +45,8 @@ const routes = [
     path: '*',
     component: () => import('pages/Error404.vue')
   },
-  dashboardPage
+  dashboardPage,
+  orders
 ]
 
 

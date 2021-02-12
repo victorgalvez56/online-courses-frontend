@@ -41,25 +41,48 @@
         >BUSCAR</a
       >
     </section>
-
+    <!-- 
     <div class="q-pa-md">
-      <div class="row q-col-gutter-xl">
+      <div class="row q-gutter-xs">
         <div class="col-4" v-for="kind in kinds.items" :key="`xl-${kind}`">
           <div class="my-content">
-            <q-card class="my-card">
-              <q-img 
-              :src="'http://0.0.0.0:4000/api/kind/media/'+kind.file"
-              >
-                <div class="text-h5 absolute-bottom text-right">
-                  {{kind.name}}
-                </div>
-              </q-img>
-            </q-card>
+            <a :href="'/' + kind.name">
+              <q-card class="my-card" to="/mails">
+                <q-img
+                  :src="
+                    'https://api-delivery.rvalcami.cloud/api/kind/media/' +
+                      kind.file"
+                >
+                  <div class="text-h5 absolute-bottom text-right">
+                    {{ kind.name }}
+                  </div>
+                </q-img>
+              </q-card>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+    <div class="q-pa-md">
+      <div class=" q-gutter-y-lg">
+        <div v-for="kind in kinds.items" :key="`xl-${kind}`">
+          <div class="my-content ">
+            <a :href="'/' + kind.name">
+              <q-card class="my-card" to="/mails">
+                <q-img
+                  :src="'https://api-delivery.rvalcami.cloud/api/kind/media/' +
+                      kind.file">
+                  <div class="text-h5 absolute-bottom text-right">
+                    {{ kind.name }}
+                  </div>
+                </q-img>
+              </q-card>
+            </a>
           </div>
         </div>
       </div>
     </div>
-    {{ kinds }}
   </q-page>
 </template>
 
@@ -74,8 +97,15 @@ export default {
   mounted() {
     this.$store.dispatch("kinds/readKinds");
   },
-    computed: {
+  computed: {
     ...mapState("kinds", ["kinds"])
-  },
+  }
 };
 </script>
+<style scoped>
+.card-background {
+  background: #ffffff;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 30px;
+}
+</style>

@@ -99,10 +99,10 @@
 
         <q-separator/>
 
-        <q-card-section>
+        <!-- <q-card-section>
           Assessing clients needs and present suitable promoted products. Liaising with and persuading targeted doctors
           to prescribe our products utilizing effective sales skills.
-        </q-card-section>
+        </q-card-section> -->
       </q-card>
     </q-dialog>
   </q-page>
